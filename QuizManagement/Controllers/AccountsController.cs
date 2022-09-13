@@ -19,6 +19,7 @@ namespace QuizManagement.Controllers
             {
                 Db.ALLUsers.Add(user);
                 Db.SaveChanges();
+                int dt;
                 user.Uid = Db.ALLUsers.Where(x => x.Email == user.Email).Select(x => x.Uid).FirstOrDefault();
                 if (user.UserRole == "Teacher")
                 {
