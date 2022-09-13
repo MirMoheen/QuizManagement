@@ -1,0 +1,1093 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="QuizManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ALLUser">
+          <Key>
+            <PropertyRef Name="Uid" />
+          </Key>
+          <Property Name="Uid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="UserPassword" Type="varchar" MaxLength="100" />
+          <Property Name="UserRole" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="AttemptedQuestion">
+          <Key>
+            <PropertyRef Name="Aqid" />
+          </Key>
+          <Property Name="Aqid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Qzid" Type="int" />
+          <Property Name="Qsid" Type="int" />
+          <Property Name="Uid" Type="int" />
+        </EntityType>
+        <EntityType Name="correctAnswer">
+          <Key>
+            <PropertyRef Name="CAid" />
+          </Key>
+          <Property Name="CAid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Qsid" Type="int" />
+          <Property Name="Qoid" Type="int" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="cid" />
+          </Key>
+          <Property Name="cid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CName" Type="varchar" MaxLength="50" />
+          <Property Name="Creadithours" Type="int" />
+        </EntityType>
+        <EntityType Name="EnrollerdCourse">
+          <Key>
+            <PropertyRef Name="Ecid" />
+          </Key>
+          <Property Name="Ecid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cid" Type="int" />
+          <Property Name="Tid" Type="int" />
+          <Property Name="sid" Type="int" />
+        </EntityType>
+        <EntityType Name="Parents">
+          <Key>
+            <PropertyRef Name="Pid" />
+          </Key>
+          <Property Name="Pid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Uid" Type="int" />
+        </EntityType>
+        <EntityType Name="QuestionOption">
+          <Key>
+            <PropertyRef Name="Qoid" />
+          </Key>
+          <Property Name="Qoid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestionOPtion" Type="varchar" MaxLength="100" />
+          <Property Name="Qsid" Type="int" />
+        </EntityType>
+        <EntityType Name="Questions">
+          <Key>
+            <PropertyRef Name="Questid" />
+          </Key>
+          <Property Name="Questid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestionDescription" Type="varchar" MaxLength="100" />
+          <Property Name="Quizid" Type="int" />
+        </EntityType>
+        <EntityType Name="Quiz">
+          <Key>
+            <PropertyRef Name="Qid" />
+          </Key>
+          <Property Name="Qid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QTitle" Type="varchar" MaxLength="100" />
+          <Property Name="Quizdate" Type="date" />
+          <Property Name="Tid" Type="int" />
+          <Property Name="Startingtime" Type="time" Precision="7" />
+          <Property Name="QuizDuration" Type="int" />
+          <Property Name="CourseName" Type="varchar" MaxLength="100" />
+          <Property Name="Section" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="sid" />
+          </Key>
+          <Property Name="sid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AridNO" Type="varchar" MaxLength="50" />
+          <Property Name="Section" Type="varchar" MaxLength="100" />
+          <Property Name="uid" Type="int" />
+        </EntityType>
+        <EntityType Name="StudentAnswer">
+          <Key>
+            <PropertyRef Name="CAid" />
+          </Key>
+          <Property Name="CAid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Qsid" Type="int" />
+          <Property Name="Qoid" Type="int" />
+        </EntityType>
+        <EntityType Name="StudentAttenedence">
+          <Key>
+            <PropertyRef Name="Said" />
+          </Key>
+          <Property Name="Said" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="attendencedate" Type="date" />
+          <Property Name="Uid" Type="int" />
+        </EntityType>
+        <EntityType Name="Studentverfication">
+          <Key>
+            <PropertyRef Name="sfid" />
+          </Key>
+          <Property Name="sfid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Picturename" Type="varchar" MaxLength="100" />
+          <Property Name="sid" Type="int" />
+        </EntityType>
+        <EntityType Name="Teacher">
+          <Key>
+            <PropertyRef Name="Tid" />
+          </Key>
+          <Property Name="Tid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="uid" Type="int" />
+        </EntityType>
+        <Association Name="FK__AttemptedQ__Qsid__17036CC0">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="0..1" />
+          <End Role="AttemptedQuestion" Type="Self.AttemptedQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="Questid" />
+            </Principal>
+            <Dependent Role="AttemptedQuestion">
+              <PropertyRef Name="Qsid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AttemptedQ__Qzid__160F4887">
+          <End Role="Quiz" Type="Self.Quiz" Multiplicity="0..1" />
+          <End Role="AttemptedQuestion" Type="Self.AttemptedQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quiz">
+              <PropertyRef Name="Qid" />
+            </Principal>
+            <Dependent Role="AttemptedQuestion">
+              <PropertyRef Name="Qzid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AttemptedQu__Uid__17F790F9">
+          <End Role="ALLUser" Type="Self.ALLUser" Multiplicity="0..1" />
+          <End Role="AttemptedQuestion" Type="Self.AttemptedQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ALLUser">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="AttemptedQuestion">
+              <PropertyRef Name="Uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__correctAns__Qoid__6383C8BA">
+          <End Role="QuestionOption" Type="Self.QuestionOption" Multiplicity="0..1" />
+          <End Role="correctAnswer" Type="Self.correctAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionOption">
+              <PropertyRef Name="Qoid" />
+            </Principal>
+            <Dependent Role="correctAnswer">
+              <PropertyRef Name="Qoid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__correctAns__Qsid__628FA481">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="0..1" />
+          <End Role="correctAnswer" Type="Self.correctAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="Questid" />
+            </Principal>
+            <Dependent Role="correctAnswer">
+              <PropertyRef Name="Qsid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EnrollerdCo__cid__49C3F6B7">
+          <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
+          <End Role="EnrollerdCourse" Type="Self.EnrollerdCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="cid" />
+            </Principal>
+            <Dependent Role="EnrollerdCourse">
+              <PropertyRef Name="cid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EnrollerdCo__sid__4BAC3F29">
+          <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+          <End Role="EnrollerdCourse" Type="Self.EnrollerdCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="sid" />
+            </Principal>
+            <Dependent Role="EnrollerdCourse">
+              <PropertyRef Name="sid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EnrollerdCo__Tid__4AB81AF0">
+          <End Role="Teacher" Type="Self.Teacher" Multiplicity="0..1" />
+          <End Role="EnrollerdCourse" Type="Self.EnrollerdCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teacher">
+              <PropertyRef Name="Tid" />
+            </Principal>
+            <Dependent Role="EnrollerdCourse">
+              <PropertyRef Name="Tid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Parents__Uid__44FF419A">
+          <End Role="ALLUser" Type="Self.ALLUser" Multiplicity="0..1" />
+          <End Role="Parents" Type="Self.Parents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ALLUser">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="Parents">
+              <PropertyRef Name="Uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QuestionOp__Qsid__5FB337D6">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="0..1" />
+          <End Role="QuestionOption" Type="Self.QuestionOption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="Questid" />
+            </Principal>
+            <Dependent Role="QuestionOption">
+              <PropertyRef Name="Qsid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Questions__Quizi__6E01572D">
+          <End Role="Quiz" Type="Self.Quiz" Multiplicity="0..1" />
+          <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quiz">
+              <PropertyRef Name="Qid" />
+            </Principal>
+            <Dependent Role="Questions">
+              <PropertyRef Name="Quizid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Quiz__Tid__4222D4EF">
+          <End Role="Teacher" Type="Self.Teacher" Multiplicity="0..1" />
+          <End Role="Quiz" Type="Self.Quiz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teacher">
+              <PropertyRef Name="Tid" />
+            </Principal>
+            <Dependent Role="Quiz">
+              <PropertyRef Name="Tid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Student__uid__38996AB5">
+          <End Role="ALLUser" Type="Self.ALLUser" Multiplicity="0..1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ALLUser">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentAns__Qoid__6754599E">
+          <End Role="QuestionOption" Type="Self.QuestionOption" Multiplicity="0..1" />
+          <End Role="StudentAnswer" Type="Self.StudentAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionOption">
+              <PropertyRef Name="Qoid" />
+            </Principal>
+            <Dependent Role="StudentAnswer">
+              <PropertyRef Name="Qoid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentAns__Qsid__66603565">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="0..1" />
+          <End Role="StudentAnswer" Type="Self.StudentAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="Questid" />
+            </Principal>
+            <Dependent Role="StudentAnswer">
+              <PropertyRef Name="Qsid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentAtte__Uid__6A30C649">
+          <End Role="ALLUser" Type="Self.ALLUser" Multiplicity="0..1" />
+          <End Role="StudentAttenedence" Type="Self.StudentAttenedence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ALLUser">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="StudentAttenedence">
+              <PropertyRef Name="Uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Studentverf__sid__02FC7413">
+          <End Role="ALLUser" Type="Self.ALLUser" Multiplicity="0..1" />
+          <End Role="Studentverfication" Type="Self.Studentverfication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ALLUser">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="Studentverfication">
+              <PropertyRef Name="sid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Teacher__uid__3F466844">
+          <End Role="ALLUser" Type="Self.ALLUser" Multiplicity="0..1" />
+          <End Role="Teacher" Type="Self.Teacher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ALLUser">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="Teacher">
+              <PropertyRef Name="uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="getstudentQuizquestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="QuizManagementModelStoreContainer">
+          <EntitySet Name="ALLUser" EntityType="Self.ALLUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AttemptedQuestion" EntityType="Self.AttemptedQuestion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="correctAnswer" EntityType="Self.correctAnswer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EnrollerdCourse" EntityType="Self.EnrollerdCourse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Parents" EntityType="Self.Parents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuestionOption" EntityType="Self.QuestionOption" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Quiz" EntityType="Self.Quiz" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentAnswer" EntityType="Self.StudentAnswer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentAttenedence" EntityType="Self.StudentAttenedence" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Studentverfication" EntityType="Self.Studentverfication" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teacher" EntityType="Self.Teacher" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__AttemptedQ__Qsid__17036CC0" Association="Self.FK__AttemptedQ__Qsid__17036CC0">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="AttemptedQuestion" EntitySet="AttemptedQuestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AttemptedQ__Qzid__160F4887" Association="Self.FK__AttemptedQ__Qzid__160F4887">
+            <End Role="Quiz" EntitySet="Quiz" />
+            <End Role="AttemptedQuestion" EntitySet="AttemptedQuestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AttemptedQu__Uid__17F790F9" Association="Self.FK__AttemptedQu__Uid__17F790F9">
+            <End Role="ALLUser" EntitySet="ALLUser" />
+            <End Role="AttemptedQuestion" EntitySet="AttemptedQuestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__correctAns__Qoid__6383C8BA" Association="Self.FK__correctAns__Qoid__6383C8BA">
+            <End Role="QuestionOption" EntitySet="QuestionOption" />
+            <End Role="correctAnswer" EntitySet="correctAnswer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__correctAns__Qsid__628FA481" Association="Self.FK__correctAns__Qsid__628FA481">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="correctAnswer" EntitySet="correctAnswer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EnrollerdCo__cid__49C3F6B7" Association="Self.FK__EnrollerdCo__cid__49C3F6B7">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="EnrollerdCourse" EntitySet="EnrollerdCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EnrollerdCo__sid__4BAC3F29" Association="Self.FK__EnrollerdCo__sid__4BAC3F29">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="EnrollerdCourse" EntitySet="EnrollerdCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EnrollerdCo__Tid__4AB81AF0" Association="Self.FK__EnrollerdCo__Tid__4AB81AF0">
+            <End Role="Teacher" EntitySet="Teacher" />
+            <End Role="EnrollerdCourse" EntitySet="EnrollerdCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Parents__Uid__44FF419A" Association="Self.FK__Parents__Uid__44FF419A">
+            <End Role="ALLUser" EntitySet="ALLUser" />
+            <End Role="Parents" EntitySet="Parents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QuestionOp__Qsid__5FB337D6" Association="Self.FK__QuestionOp__Qsid__5FB337D6">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="QuestionOption" EntitySet="QuestionOption" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Questions__Quizi__6E01572D" Association="Self.FK__Questions__Quizi__6E01572D">
+            <End Role="Quiz" EntitySet="Quiz" />
+            <End Role="Questions" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Quiz__Tid__4222D4EF" Association="Self.FK__Quiz__Tid__4222D4EF">
+            <End Role="Teacher" EntitySet="Teacher" />
+            <End Role="Quiz" EntitySet="Quiz" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student__uid__38996AB5" Association="Self.FK__Student__uid__38996AB5">
+            <End Role="ALLUser" EntitySet="ALLUser" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentAns__Qoid__6754599E" Association="Self.FK__StudentAns__Qoid__6754599E">
+            <End Role="QuestionOption" EntitySet="QuestionOption" />
+            <End Role="StudentAnswer" EntitySet="StudentAnswer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentAns__Qsid__66603565" Association="Self.FK__StudentAns__Qsid__66603565">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="StudentAnswer" EntitySet="StudentAnswer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentAtte__Uid__6A30C649" Association="Self.FK__StudentAtte__Uid__6A30C649">
+            <End Role="ALLUser" EntitySet="ALLUser" />
+            <End Role="StudentAttenedence" EntitySet="StudentAttenedence" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Studentverf__sid__02FC7413" Association="Self.FK__Studentverf__sid__02FC7413">
+            <End Role="ALLUser" EntitySet="ALLUser" />
+            <End Role="Studentverfication" EntitySet="Studentverfication" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Teacher__uid__3F466844" Association="Self.FK__Teacher__uid__3F466844">
+            <End Role="ALLUser" EntitySet="ALLUser" />
+            <End Role="Teacher" EntitySet="Teacher" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QuizManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ALLUsers" EntityType="QuizManagementModel.ALLUser" />
+          <EntitySet Name="AttemptedQuestions" EntityType="QuizManagementModel.AttemptedQuestion" />
+          <EntitySet Name="correctAnswers" EntityType="QuizManagementModel.correctAnswer" />
+          <EntitySet Name="Courses" EntityType="QuizManagementModel.Course" />
+          <EntitySet Name="EnrollerdCourses" EntityType="QuizManagementModel.EnrollerdCourse" />
+          <EntitySet Name="Parents" EntityType="QuizManagementModel.Parent" />
+          <EntitySet Name="QuestionOptions" EntityType="QuizManagementModel.QuestionOption" />
+          <EntitySet Name="Questions" EntityType="QuizManagementModel.Question" />
+          <EntitySet Name="Quizs" EntityType="QuizManagementModel.Quiz" />
+          <EntitySet Name="Students" EntityType="QuizManagementModel.Student" />
+          <EntitySet Name="StudentAnswers" EntityType="QuizManagementModel.StudentAnswer" />
+          <EntitySet Name="StudentAttenedences" EntityType="QuizManagementModel.StudentAttenedence" />
+          <EntitySet Name="Studentverfications" EntityType="QuizManagementModel.Studentverfication" />
+          <EntitySet Name="Teachers" EntityType="QuizManagementModel.Teacher" />
+          <AssociationSet Name="FK__AttemptedQu__Uid__17F790F9" Association="QuizManagementModel.FK__AttemptedQu__Uid__17F790F9">
+            <End Role="ALLUser" EntitySet="ALLUsers" />
+            <End Role="AttemptedQuestion" EntitySet="AttemptedQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Parents__Uid__44FF419A" Association="QuizManagementModel.FK__Parents__Uid__44FF419A">
+            <End Role="ALLUser" EntitySet="ALLUsers" />
+            <End Role="Parent" EntitySet="Parents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student__uid__38996AB5" Association="QuizManagementModel.FK__Student__uid__38996AB5">
+            <End Role="ALLUser" EntitySet="ALLUsers" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentAtte__Uid__6A30C649" Association="QuizManagementModel.FK__StudentAtte__Uid__6A30C649">
+            <End Role="ALLUser" EntitySet="ALLUsers" />
+            <End Role="StudentAttenedence" EntitySet="StudentAttenedences" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Studentverf__sid__02FC7413" Association="QuizManagementModel.FK__Studentverf__sid__02FC7413">
+            <End Role="ALLUser" EntitySet="ALLUsers" />
+            <End Role="Studentverfication" EntitySet="Studentverfications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Teacher__uid__3F466844" Association="QuizManagementModel.FK__Teacher__uid__3F466844">
+            <End Role="ALLUser" EntitySet="ALLUsers" />
+            <End Role="Teacher" EntitySet="Teachers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AttemptedQ__Qsid__17036CC0" Association="QuizManagementModel.FK__AttemptedQ__Qsid__17036CC0">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="AttemptedQuestion" EntitySet="AttemptedQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AttemptedQ__Qzid__160F4887" Association="QuizManagementModel.FK__AttemptedQ__Qzid__160F4887">
+            <End Role="Quiz" EntitySet="Quizs" />
+            <End Role="AttemptedQuestion" EntitySet="AttemptedQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__correctAns__Qoid__6383C8BA" Association="QuizManagementModel.FK__correctAns__Qoid__6383C8BA">
+            <End Role="QuestionOption" EntitySet="QuestionOptions" />
+            <End Role="correctAnswer" EntitySet="correctAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__correctAns__Qsid__628FA481" Association="QuizManagementModel.FK__correctAns__Qsid__628FA481">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="correctAnswer" EntitySet="correctAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EnrollerdCo__cid__49C3F6B7" Association="QuizManagementModel.FK__EnrollerdCo__cid__49C3F6B7">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="EnrollerdCourse" EntitySet="EnrollerdCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EnrollerdCo__sid__4BAC3F29" Association="QuizManagementModel.FK__EnrollerdCo__sid__4BAC3F29">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="EnrollerdCourse" EntitySet="EnrollerdCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EnrollerdCo__Tid__4AB81AF0" Association="QuizManagementModel.FK__EnrollerdCo__Tid__4AB81AF0">
+            <End Role="Teacher" EntitySet="Teachers" />
+            <End Role="EnrollerdCourse" EntitySet="EnrollerdCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QuestionOp__Qsid__5FB337D6" Association="QuizManagementModel.FK__QuestionOp__Qsid__5FB337D6">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="QuestionOption" EntitySet="QuestionOptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentAns__Qoid__6754599E" Association="QuizManagementModel.FK__StudentAns__Qoid__6754599E">
+            <End Role="QuestionOption" EntitySet="QuestionOptions" />
+            <End Role="StudentAnswer" EntitySet="StudentAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Questions__Quizi__6E01572D" Association="QuizManagementModel.FK__Questions__Quizi__6E01572D">
+            <End Role="Quiz" EntitySet="Quizs" />
+            <End Role="Question" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentAns__Qsid__66603565" Association="QuizManagementModel.FK__StudentAns__Qsid__66603565">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="StudentAnswer" EntitySet="StudentAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Quiz__Tid__4222D4EF" Association="QuizManagementModel.FK__Quiz__Tid__4222D4EF">
+            <End Role="Teacher" EntitySet="Teachers" />
+            <End Role="Quiz" EntitySet="Quizs" />
+          </AssociationSet>
+          <FunctionImport Name="getstudentQuiz" ReturnType="Collection(QuizManagementModel.getstudentQuiz_Result)" />
+          <FunctionImport Name="getstudentQuizquestion" ReturnType="Collection(QuizManagementModel.getstudentQuizquestion_Result)" />
+        </EntityContainer>
+        <EntityType Name="ALLUser">
+          <Key>
+            <PropertyRef Name="Uid" />
+          </Key>
+          <Property Name="Uid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UserRole" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AttemptedQuestions" Relationship="QuizManagementModel.FK__AttemptedQu__Uid__17F790F9" FromRole="ALLUser" ToRole="AttemptedQuestion" />
+          <NavigationProperty Name="Parents" Relationship="QuizManagementModel.FK__Parents__Uid__44FF419A" FromRole="ALLUser" ToRole="Parent" />
+          <NavigationProperty Name="Students" Relationship="QuizManagementModel.FK__Student__uid__38996AB5" FromRole="ALLUser" ToRole="Student" />
+          <NavigationProperty Name="StudentAttenedences" Relationship="QuizManagementModel.FK__StudentAtte__Uid__6A30C649" FromRole="ALLUser" ToRole="StudentAttenedence" />
+          <NavigationProperty Name="Studentverfications" Relationship="QuizManagementModel.FK__Studentverf__sid__02FC7413" FromRole="ALLUser" ToRole="Studentverfication" />
+          <NavigationProperty Name="Teachers" Relationship="QuizManagementModel.FK__Teacher__uid__3F466844" FromRole="ALLUser" ToRole="Teacher" />
+        </EntityType>
+        <EntityType Name="AttemptedQuestion">
+          <Key>
+            <PropertyRef Name="Aqid" />
+          </Key>
+          <Property Name="Aqid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Qzid" Type="Int32" />
+          <Property Name="Qsid" Type="Int32" />
+          <Property Name="Uid" Type="Int32" />
+          <NavigationProperty Name="ALLUser" Relationship="QuizManagementModel.FK__AttemptedQu__Uid__17F790F9" FromRole="AttemptedQuestion" ToRole="ALLUser" />
+          <NavigationProperty Name="Question" Relationship="QuizManagementModel.FK__AttemptedQ__Qsid__17036CC0" FromRole="AttemptedQuestion" ToRole="Question" />
+          <NavigationProperty Name="Quiz" Relationship="QuizManagementModel.FK__AttemptedQ__Qzid__160F4887" FromRole="AttemptedQuestion" ToRole="Quiz" />
+        </EntityType>
+        <EntityType Name="correctAnswer">
+          <Key>
+            <PropertyRef Name="CAid" />
+          </Key>
+          <Property Name="CAid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Qsid" Type="Int32" />
+          <Property Name="Qoid" Type="Int32" />
+          <NavigationProperty Name="QuestionOption" Relationship="QuizManagementModel.FK__correctAns__Qoid__6383C8BA" FromRole="correctAnswer" ToRole="QuestionOption" />
+          <NavigationProperty Name="Question" Relationship="QuizManagementModel.FK__correctAns__Qsid__628FA481" FromRole="correctAnswer" ToRole="Question" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="cid" />
+          </Key>
+          <Property Name="cid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Creadithours" Type="Int32" />
+          <NavigationProperty Name="EnrollerdCourses" Relationship="QuizManagementModel.FK__EnrollerdCo__cid__49C3F6B7" FromRole="Course" ToRole="EnrollerdCourse" />
+        </EntityType>
+        <EntityType Name="EnrollerdCourse">
+          <Key>
+            <PropertyRef Name="Ecid" />
+          </Key>
+          <Property Name="Ecid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cid" Type="Int32" />
+          <Property Name="Tid" Type="Int32" />
+          <Property Name="sid" Type="Int32" />
+          <NavigationProperty Name="Course" Relationship="QuizManagementModel.FK__EnrollerdCo__cid__49C3F6B7" FromRole="EnrollerdCourse" ToRole="Course" />
+          <NavigationProperty Name="Student" Relationship="QuizManagementModel.FK__EnrollerdCo__sid__4BAC3F29" FromRole="EnrollerdCourse" ToRole="Student" />
+          <NavigationProperty Name="Teacher" Relationship="QuizManagementModel.FK__EnrollerdCo__Tid__4AB81AF0" FromRole="EnrollerdCourse" ToRole="Teacher" />
+        </EntityType>
+        <EntityType Name="Parent">
+          <Key>
+            <PropertyRef Name="Pid" />
+          </Key>
+          <Property Name="Pid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Uid" Type="Int32" />
+          <NavigationProperty Name="ALLUser" Relationship="QuizManagementModel.FK__Parents__Uid__44FF419A" FromRole="Parent" ToRole="ALLUser" />
+        </EntityType>
+        <EntityType Name="QuestionOption">
+          <Key>
+            <PropertyRef Name="Qoid" />
+          </Key>
+          <Property Name="Qoid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionOPtion1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Qsid" Type="Int32" />
+          <NavigationProperty Name="correctAnswers" Relationship="QuizManagementModel.FK__correctAns__Qoid__6383C8BA" FromRole="QuestionOption" ToRole="correctAnswer" />
+          <NavigationProperty Name="Question" Relationship="QuizManagementModel.FK__QuestionOp__Qsid__5FB337D6" FromRole="QuestionOption" ToRole="Question" />
+          <NavigationProperty Name="StudentAnswers" Relationship="QuizManagementModel.FK__StudentAns__Qoid__6754599E" FromRole="QuestionOption" ToRole="StudentAnswer" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="Questid" />
+          </Key>
+          <Property Name="Questid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Quizid" Type="Int32" />
+          <NavigationProperty Name="AttemptedQuestions" Relationship="QuizManagementModel.FK__AttemptedQ__Qsid__17036CC0" FromRole="Question" ToRole="AttemptedQuestion" />
+          <NavigationProperty Name="correctAnswers" Relationship="QuizManagementModel.FK__correctAns__Qsid__628FA481" FromRole="Question" ToRole="correctAnswer" />
+          <NavigationProperty Name="QuestionOptions" Relationship="QuizManagementModel.FK__QuestionOp__Qsid__5FB337D6" FromRole="Question" ToRole="QuestionOption" />
+          <NavigationProperty Name="Quiz" Relationship="QuizManagementModel.FK__Questions__Quizi__6E01572D" FromRole="Question" ToRole="Quiz" />
+          <NavigationProperty Name="StudentAnswers" Relationship="QuizManagementModel.FK__StudentAns__Qsid__66603565" FromRole="Question" ToRole="StudentAnswer" />
+        </EntityType>
+        <EntityType Name="Quiz">
+          <Key>
+            <PropertyRef Name="Qid" />
+          </Key>
+          <Property Name="Qid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Quizdate" Type="DateTime" Precision="0" />
+          <Property Name="Tid" Type="Int32" />
+          <Property Name="Startingtime" Type="Time" Precision="7" />
+          <Property Name="QuizDuration" Type="Int32" />
+          <Property Name="CourseName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Section" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AttemptedQuestions" Relationship="QuizManagementModel.FK__AttemptedQ__Qzid__160F4887" FromRole="Quiz" ToRole="AttemptedQuestion" />
+          <NavigationProperty Name="Questions" Relationship="QuizManagementModel.FK__Questions__Quizi__6E01572D" FromRole="Quiz" ToRole="Question" />
+          <NavigationProperty Name="Teacher" Relationship="QuizManagementModel.FK__Quiz__Tid__4222D4EF" FromRole="Quiz" ToRole="Teacher" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="sid" />
+          </Key>
+          <Property Name="sid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AridNO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Section" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="uid" Type="Int32" />
+          <NavigationProperty Name="ALLUser" Relationship="QuizManagementModel.FK__Student__uid__38996AB5" FromRole="Student" ToRole="ALLUser" />
+          <NavigationProperty Name="EnrollerdCourses" Relationship="QuizManagementModel.FK__EnrollerdCo__sid__4BAC3F29" FromRole="Student" ToRole="EnrollerdCourse" />
+        </EntityType>
+        <EntityType Name="StudentAnswer">
+          <Key>
+            <PropertyRef Name="CAid" />
+          </Key>
+          <Property Name="CAid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Qsid" Type="Int32" />
+          <Property Name="Qoid" Type="Int32" />
+          <NavigationProperty Name="QuestionOption" Relationship="QuizManagementModel.FK__StudentAns__Qoid__6754599E" FromRole="StudentAnswer" ToRole="QuestionOption" />
+          <NavigationProperty Name="Question" Relationship="QuizManagementModel.FK__StudentAns__Qsid__66603565" FromRole="StudentAnswer" ToRole="Question" />
+        </EntityType>
+        <EntityType Name="StudentAttenedence">
+          <Key>
+            <PropertyRef Name="Said" />
+          </Key>
+          <Property Name="Said" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="attendencedate" Type="DateTime" Precision="0" />
+          <Property Name="Uid" Type="Int32" />
+          <NavigationProperty Name="ALLUser" Relationship="QuizManagementModel.FK__StudentAtte__Uid__6A30C649" FromRole="StudentAttenedence" ToRole="ALLUser" />
+        </EntityType>
+        <EntityType Name="Studentverfication">
+          <Key>
+            <PropertyRef Name="sfid" />
+          </Key>
+          <Property Name="sfid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Picturename" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="sid" Type="Int32" />
+          <NavigationProperty Name="ALLUser" Relationship="QuizManagementModel.FK__Studentverf__sid__02FC7413" FromRole="Studentverfication" ToRole="ALLUser" />
+        </EntityType>
+        <EntityType Name="Teacher">
+          <Key>
+            <PropertyRef Name="Tid" />
+          </Key>
+          <Property Name="Tid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="uid" Type="Int32" />
+          <NavigationProperty Name="ALLUser" Relationship="QuizManagementModel.FK__Teacher__uid__3F466844" FromRole="Teacher" ToRole="ALLUser" />
+          <NavigationProperty Name="EnrollerdCourses" Relationship="QuizManagementModel.FK__EnrollerdCo__Tid__4AB81AF0" FromRole="Teacher" ToRole="EnrollerdCourse" />
+          <NavigationProperty Name="Quizs" Relationship="QuizManagementModel.FK__Quiz__Tid__4222D4EF" FromRole="Teacher" ToRole="Quiz" />
+        </EntityType>
+        <Association Name="FK__AttemptedQu__Uid__17F790F9">
+          <End Type="QuizManagementModel.ALLUser" Role="ALLUser" Multiplicity="0..1" />
+          <End Type="QuizManagementModel.AttemptedQuestion" Role="AttemptedQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ALLUser">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="AttemptedQuestion">
+              <PropertyRef Name="Uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Parents__Uid__44FF419A">
+          <End Type="QuizManagementModel.ALLUser" Role="ALLUser" Multiplicity="0..1" />
+          <End Type="QuizManagementModel.Parent" Role="Parent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ALLUser">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="Parent">
+              <PropertyRef Name="Uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Student__uid__38996AB5">
+          <End Type="QuizManagementModel.ALLUser" Role="ALLUser" Multiplicity="0..1" />
+          <End Type="QuizManagementModel.Student" Role="Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ALLUser">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentAtte__Uid__6A30C649">
+          <End Type="QuizManagementModel.ALLUser" Role="ALLUser" Multiplicity="0..1" />
+          <End Type="QuizManagementModel.StudentAttenedence" Role="StudentAttenedence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ALLUser">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="StudentAttenedence">
+              <PropertyRef Name="Uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Studentverf__sid__02FC7413">
+          <End Type="QuizManagementModel.ALLUser" Role="ALLUser" Multiplicity="0..1" />
+          <End Type="QuizManagementModel.Studentverfication" Role="Studentverfication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ALLUser">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="Studentverfication">
+              <PropertyRef Name="sid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Teacher__uid__3F466844">
+          <End Type="QuizManagementModel.ALLUser" Role="ALLUser" Multiplicity="0..1" />
+          <End Type="QuizManagementModel.Teacher" Role="Teacher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ALLUser">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="Teacher">
+              <PropertyRef Name="uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AttemptedQ__Qsid__17036CC0">
+          <End Type="QuizManagementModel.Question" Role="Question" Multiplicity="0..1" />
+          <End Type="QuizManagementModel.AttemptedQuestion" Role="AttemptedQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="Questid" />
+            </Principal>
+            <Dependent Role="AttemptedQuestion">
+              <PropertyRef Name="Qsid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AttemptedQ__Qzid__160F4887">
+          <End Type="QuizManagementModel.Quiz" Role="Quiz" Multiplicity="0..1" />
+          <End Type="QuizManagementModel.AttemptedQuestion" Role="AttemptedQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quiz">
+              <PropertyRef Name="Qid" />
+            </Principal>
+            <Dependent Role="AttemptedQuestion">
+              <PropertyRef Name="Qzid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__correctAns__Qoid__6383C8BA">
+          <End Type="QuizManagementModel.QuestionOption" Role="QuestionOption" Multiplicity="0..1" />
+          <End Type="QuizManagementModel.correctAnswer" Role="correctAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionOption">
+              <PropertyRef Name="Qoid" />
+            </Principal>
+            <Dependent Role="correctAnswer">
+              <PropertyRef Name="Qoid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__correctAns__Qsid__628FA481">
+          <End Type="QuizManagementModel.Question" Role="Question" Multiplicity="0..1" />
+          <End Type="QuizManagementModel.correctAnswer" Role="correctAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="Questid" />
+            </Principal>
+            <Dependent Role="correctAnswer">
+              <PropertyRef Name="Qsid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EnrollerdCo__cid__49C3F6B7">
+          <End Type="QuizManagementModel.Course" Role="Course" Multiplicity="0..1" />
+          <End Type="QuizManagementModel.EnrollerdCourse" Role="EnrollerdCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="cid" />
+            </Principal>
+            <Dependent Role="EnrollerdCourse">
+              <PropertyRef Name="cid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EnrollerdCo__sid__4BAC3F29">
+          <End Type="QuizManagementModel.Student" Role="Student" Multiplicity="0..1" />
+          <End Type="QuizManagementModel.EnrollerdCourse" Role="EnrollerdCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="sid" />
+            </Principal>
+            <Dependent Role="EnrollerdCourse">
+              <PropertyRef Name="sid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EnrollerdCo__Tid__4AB81AF0">
+          <End Type="QuizManagementModel.Teacher" Role="Teacher" Multiplicity="0..1" />
+          <End Type="QuizManagementModel.EnrollerdCourse" Role="EnrollerdCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teacher">
+              <PropertyRef Name="Tid" />
+            </Principal>
+            <Dependent Role="EnrollerdCourse">
+              <PropertyRef Name="Tid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QuestionOp__Qsid__5FB337D6">
+          <End Type="QuizManagementModel.Question" Role="Question" Multiplicity="0..1" />
+          <End Type="QuizManagementModel.QuestionOption" Role="QuestionOption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="Questid" />
+            </Principal>
+            <Dependent Role="QuestionOption">
+              <PropertyRef Name="Qsid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentAns__Qoid__6754599E">
+          <End Type="QuizManagementModel.QuestionOption" Role="QuestionOption" Multiplicity="0..1" />
+          <End Type="QuizManagementModel.StudentAnswer" Role="StudentAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionOption">
+              <PropertyRef Name="Qoid" />
+            </Principal>
+            <Dependent Role="StudentAnswer">
+              <PropertyRef Name="Qoid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Questions__Quizi__6E01572D">
+          <End Type="QuizManagementModel.Quiz" Role="Quiz" Multiplicity="0..1" />
+          <End Type="QuizManagementModel.Question" Role="Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quiz">
+              <PropertyRef Name="Qid" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="Quizid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentAns__Qsid__66603565">
+          <End Type="QuizManagementModel.Question" Role="Question" Multiplicity="0..1" />
+          <End Type="QuizManagementModel.StudentAnswer" Role="StudentAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="Questid" />
+            </Principal>
+            <Dependent Role="StudentAnswer">
+              <PropertyRef Name="Qsid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Quiz__Tid__4222D4EF">
+          <End Type="QuizManagementModel.Teacher" Role="Teacher" Multiplicity="0..1" />
+          <End Type="QuizManagementModel.Quiz" Role="Quiz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teacher">
+              <PropertyRef Name="Tid" />
+            </Principal>
+            <Dependent Role="Quiz">
+              <PropertyRef Name="Tid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="getstudentQuiz_Result">
+          <Property Type="Int32" Name="Questid" Nullable="false" />
+          <Property Type="String" Name="QuestionDescription" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="Quizid" Nullable="true" />
+          <Property Type="Int32" Name="Aqid" Nullable="false" />
+          <Property Type="Int32" Name="Qzid" Nullable="true" />
+          <Property Type="Int32" Name="Qsid" Nullable="true" />
+          <Property Type="Int32" Name="Uid" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="getstudentQuizquestion_Result">
+          <Property Type="Int32" Name="Questid" Nullable="false" />
+          <Property Type="String" Name="QuestionDescription" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="Quizid" Nullable="true" />
+          <Property Type="Int32" Name="Aqid" Nullable="false" />
+          <Property Type="Int32" Name="Qzid" Nullable="true" />
+          <Property Type="Int32" Name="Qsid" Nullable="true" />
+          <Property Type="Int32" Name="Uid" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QuizManagementModelStoreContainer" CdmEntityContainer="DbEntities">
+          <EntitySetMapping Name="ALLUsers">
+            <EntityTypeMapping TypeName="QuizManagementModel.ALLUser">
+              <MappingFragment StoreEntitySet="ALLUser">
+                <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Uid" ColumnName="Uid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AttemptedQuestions">
+            <EntityTypeMapping TypeName="QuizManagementModel.AttemptedQuestion">
+              <MappingFragment StoreEntitySet="AttemptedQuestion">
+                <ScalarProperty Name="Uid" ColumnName="Uid" />
+                <ScalarProperty Name="Qsid" ColumnName="Qsid" />
+                <ScalarProperty Name="Qzid" ColumnName="Qzid" />
+                <ScalarProperty Name="Aqid" ColumnName="Aqid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="correctAnswers">
+            <EntityTypeMapping TypeName="QuizManagementModel.correctAnswer">
+              <MappingFragment StoreEntitySet="correctAnswer">
+                <ScalarProperty Name="Qoid" ColumnName="Qoid" />
+                <ScalarProperty Name="Qsid" ColumnName="Qsid" />
+                <ScalarProperty Name="CAid" ColumnName="CAid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="QuizManagementModel.Course">
+              <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="Creadithours" ColumnName="Creadithours" />
+                <ScalarProperty Name="CName" ColumnName="CName" />
+                <ScalarProperty Name="cid" ColumnName="cid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EnrollerdCourses">
+            <EntityTypeMapping TypeName="QuizManagementModel.EnrollerdCourse">
+              <MappingFragment StoreEntitySet="EnrollerdCourse">
+                <ScalarProperty Name="sid" ColumnName="sid" />
+                <ScalarProperty Name="Tid" ColumnName="Tid" />
+                <ScalarProperty Name="cid" ColumnName="cid" />
+                <ScalarProperty Name="Ecid" ColumnName="Ecid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parents">
+            <EntityTypeMapping TypeName="QuizManagementModel.Parent">
+              <MappingFragment StoreEntitySet="Parents">
+                <ScalarProperty Name="Uid" ColumnName="Uid" />
+                <ScalarProperty Name="Pid" ColumnName="Pid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionOptions">
+            <EntityTypeMapping TypeName="QuizManagementModel.QuestionOption">
+              <MappingFragment StoreEntitySet="QuestionOption">
+                <ScalarProperty Name="Qsid" ColumnName="Qsid" />
+                <ScalarProperty Name="QuestionOPtion1" ColumnName="QuestionOPtion" />
+                <ScalarProperty Name="Qoid" ColumnName="Qoid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="QuizManagementModel.Question">
+              <MappingFragment StoreEntitySet="Questions">
+                <ScalarProperty Name="Quizid" ColumnName="Quizid" />
+                <ScalarProperty Name="QuestionDescription" ColumnName="QuestionDescription" />
+                <ScalarProperty Name="Questid" ColumnName="Questid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Quizs">
+            <EntityTypeMapping TypeName="QuizManagementModel.Quiz">
+              <MappingFragment StoreEntitySet="Quiz">
+                <ScalarProperty Name="Section" ColumnName="Section" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="QuizDuration" ColumnName="QuizDuration" />
+                <ScalarProperty Name="Startingtime" ColumnName="Startingtime" />
+                <ScalarProperty Name="Tid" ColumnName="Tid" />
+                <ScalarProperty Name="Quizdate" ColumnName="Quizdate" />
+                <ScalarProperty Name="QTitle" ColumnName="QTitle" />
+                <ScalarProperty Name="Qid" ColumnName="Qid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="QuizManagementModel.Student">
+              <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="uid" ColumnName="uid" />
+                <ScalarProperty Name="Section" ColumnName="Section" />
+                <ScalarProperty Name="AridNO" ColumnName="AridNO" />
+                <ScalarProperty Name="sid" ColumnName="sid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentAnswers">
+            <EntityTypeMapping TypeName="QuizManagementModel.StudentAnswer">
+              <MappingFragment StoreEntitySet="StudentAnswer">
+                <ScalarProperty Name="Qoid" ColumnName="Qoid" />
+                <ScalarProperty Name="Qsid" ColumnName="Qsid" />
+                <ScalarProperty Name="CAid" ColumnName="CAid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentAttenedences">
+            <EntityTypeMapping TypeName="QuizManagementModel.StudentAttenedence">
+              <MappingFragment StoreEntitySet="StudentAttenedence">
+                <ScalarProperty Name="Uid" ColumnName="Uid" />
+                <ScalarProperty Name="attendencedate" ColumnName="attendencedate" />
+                <ScalarProperty Name="Said" ColumnName="Said" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Studentverfications">
+            <EntityTypeMapping TypeName="QuizManagementModel.Studentverfication">
+              <MappingFragment StoreEntitySet="Studentverfication">
+                <ScalarProperty Name="sid" ColumnName="sid" />
+                <ScalarProperty Name="Picturename" ColumnName="Picturename" />
+                <ScalarProperty Name="sfid" ColumnName="sfid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teachers">
+            <EntityTypeMapping TypeName="QuizManagementModel.Teacher">
+              <MappingFragment StoreEntitySet="Teacher">
+                <ScalarProperty Name="uid" ColumnName="uid" />
+                <ScalarProperty Name="Tid" ColumnName="Tid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="getstudentQuizquestion" FunctionName="QuizManagementModel.Store.getstudentQuizquestion">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QuizManagementModel.getstudentQuizquestion_Result">
+                <ScalarProperty Name="Questid" ColumnName="Questid" />
+                <ScalarProperty Name="QuestionDescription" ColumnName="QuestionDescription" />
+                <ScalarProperty Name="Quizid" ColumnName="Quizid" />
+                <ScalarProperty Name="Aqid" ColumnName="Aqid" />
+                <ScalarProperty Name="Qzid" ColumnName="Qzid" />
+                <ScalarProperty Name="Qsid" ColumnName="Qsid" />
+                <ScalarProperty Name="Uid" ColumnName="Uid" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

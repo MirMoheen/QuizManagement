@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="022de966f8f446189b385a91ad8fd899" Name="Diagram1">
+        <EntityTypeShape EntityType="QuizManagementModel.ALLUser" Width="1.5" PointX="0.75" PointY="9.5" />
+        <EntityTypeShape EntityType="QuizManagementModel.AttemptedQuestion" Width="1.5" PointX="9.75" PointY="6.75" />
+        <EntityTypeShape EntityType="QuizManagementModel.correctAnswer" Width="1.5" PointX="12" PointY="9" />
+        <EntityTypeShape EntityType="QuizManagementModel.Course" Width="1.5" PointX="3" PointY="1.125" />
+        <EntityTypeShape EntityType="QuizManagementModel.EnrollerdCourse" Width="1.5" PointX="5.25" PointY="3.875" />
+        <EntityTypeShape EntityType="QuizManagementModel.Parent" Width="1.5" PointX="3" PointY="11.125" />
+        <EntityTypeShape EntityType="QuizManagementModel.QuestionOption" Width="1.5" PointX="9.75" PointY="10.375" />
+        <EntityTypeShape EntityType="QuizManagementModel.Question" Width="1.5" PointX="7.5" PointY="7.5" />
+        <EntityTypeShape EntityType="QuizManagementModel.Quiz" Width="1.5" PointX="5.25" PointY="7.25" />
+        <EntityTypeShape EntityType="QuizManagementModel.Student" Width="1.5" PointX="3" PointY="4.25" />
+        <EntityTypeShape EntityType="QuizManagementModel.StudentAnswer" Width="1.5" PointX="12" PointY="12" />
+        <EntityTypeShape EntityType="QuizManagementModel.StudentAttenedence" Width="1.5" PointX="3" PointY="16.5" />
+        <EntityTypeShape EntityType="QuizManagementModel.Studentverfication" Width="1.5" PointX="3" PointY="19.125" />
+        <EntityTypeShape EntityType="QuizManagementModel.Teacher" Width="1.5" PointX="3" PointY="7.75" />
+        <AssociationConnector Association="QuizManagementModel.FK__AttemptedQu__Uid__17F790F9" />
+        <AssociationConnector Association="QuizManagementModel.FK__Parents__Uid__44FF419A" />
+        <AssociationConnector Association="QuizManagementModel.FK__Student__uid__38996AB5" />
+        <AssociationConnector Association="QuizManagementModel.FK__StudentAtte__Uid__6A30C649" />
+        <AssociationConnector Association="QuizManagementModel.FK__Studentverf__sid__02FC7413" />
+        <AssociationConnector Association="QuizManagementModel.FK__Teacher__uid__3F466844" />
+        <AssociationConnector Association="QuizManagementModel.FK__AttemptedQ__Qsid__17036CC0" />
+        <AssociationConnector Association="QuizManagementModel.FK__AttemptedQ__Qzid__160F4887" />
+        <AssociationConnector Association="QuizManagementModel.FK__correctAns__Qoid__6383C8BA" />
+        <AssociationConnector Association="QuizManagementModel.FK__correctAns__Qsid__628FA481" />
+        <AssociationConnector Association="QuizManagementModel.FK__EnrollerdCo__cid__49C3F6B7" />
+        <AssociationConnector Association="QuizManagementModel.FK__EnrollerdCo__sid__4BAC3F29" />
+        <AssociationConnector Association="QuizManagementModel.FK__EnrollerdCo__Tid__4AB81AF0" />
+        <AssociationConnector Association="QuizManagementModel.FK__QuestionOp__Qsid__5FB337D6" />
+        <AssociationConnector Association="QuizManagementModel.FK__StudentAns__Qoid__6754599E" />
+        <AssociationConnector Association="QuizManagementModel.FK__Questions__Quizi__6E01572D" />
+        <AssociationConnector Association="QuizManagementModel.FK__StudentAns__Qsid__66603565" />
+        <AssociationConnector Association="QuizManagementModel.FK__Quiz__Tid__4222D4EF" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
