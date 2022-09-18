@@ -16,7 +16,7 @@
         <EntityTypeShape EntityType="QuizManagementModel.Quiz" Width="1.5" PointX="5.25" PointY="7.25" />
         <EntityTypeShape EntityType="QuizManagementModel.Student" Width="1.5" PointX="3" PointY="4.25" />
         <EntityTypeShape EntityType="QuizManagementModel.StudentAnswer" Width="1.5" PointX="12" PointY="12" />
-        <EntityTypeShape EntityType="QuizManagementModel.StudentAttenedence" Width="1.5" PointX="3" PointY="16.5" />
+        <EntityTypeShape EntityType="QuizManagementModel.StudentAttenedence" Width="1.5" PointX="2.625" PointY="13.125" />
         <EntityTypeShape EntityType="QuizManagementModel.Studentverfication" Width="1.5" PointX="3" PointY="19.125" />
         <EntityTypeShape EntityType="QuizManagementModel.Teacher" Width="1.5" PointX="3" PointY="7.75" />
         <AssociationConnector Association="QuizManagementModel.FK__AttemptedQu__Uid__17F790F9" />
@@ -37,6 +37,9 @@
         <AssociationConnector Association="QuizManagementModel.FK__Questions__Quizi__6E01572D" />
         <AssociationConnector Association="QuizManagementModel.FK__StudentAns__Qsid__66603565" />
         <AssociationConnector Association="QuizManagementModel.FK__Quiz__Tid__4222D4EF" />
+        <EntityTypeShape EntityType="QuizManagementModel.PinGenrated" Width="1.5" PointX="7.5" PointY="11" />
+        <AssociationConnector Association="QuizManagementModel.FK__PinGenrat__Useri__3C34F16F" />
+        <AssociationConnector Association="QuizManagementModel.FK__PinGenrated__Qid__3D2915A8" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

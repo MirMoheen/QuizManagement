@@ -23,6 +23,7 @@ namespace QuizManagement.Models
             this.StudentAttenedences = new HashSet<StudentAttenedence>();
             this.Studentverfications = new HashSet<Studentverfication>();
             this.Teachers = new HashSet<Teacher>();
+            this.PinGenrateds = new HashSet<PinGenrated>();
         }
     
         public int Uid { get; set; }
@@ -43,5 +44,7 @@ namespace QuizManagement.Models
         public virtual ICollection<Studentverfication> Studentverfications { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Teacher> Teachers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PinGenrated> PinGenrateds { get; set; }
     }
 }

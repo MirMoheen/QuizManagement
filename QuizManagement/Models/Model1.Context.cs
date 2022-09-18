@@ -41,6 +41,7 @@ namespace QuizManagement.Models
         public virtual DbSet<StudentAttenedence> StudentAttenedences { get; set; }
         public virtual DbSet<Studentverfication> Studentverfications { get; set; }
         public virtual DbSet<Teacher> Teachers { get; set; }
+        public virtual DbSet<PinGenrated> PinGenrateds { get; set; }
     
         public virtual ObjectResult<getstudentQuiz_Result> getstudentQuiz()
         {

@@ -56,6 +56,15 @@
           <Property Name="Pid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Uid" Type="int" />
         </EntityType>
+        <EntityType Name="PinGenrated">
+          <Key>
+            <PropertyRef Name="PGid" />
+          </Key>
+          <Property Name="PGid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RandNum" Type="varchar" MaxLength="50" />
+          <Property Name="Userid" Type="int" />
+          <Property Name="Qid" Type="int" />
+        </EntityType>
         <EntityType Name="QuestionOption">
           <Key>
             <PropertyRef Name="Qoid" />
@@ -233,6 +242,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__PinGenrat__Useri__3C34F16F">
+          <End Role="ALLUser" Type="Self.ALLUser" Multiplicity="0..1" />
+          <End Role="PinGenrated" Type="Self.PinGenrated" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ALLUser">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="PinGenrated">
+              <PropertyRef Name="Userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PinGenrated__Qid__3D2915A8">
+          <End Role="Quiz" Type="Self.Quiz" Multiplicity="0..1" />
+          <End Role="PinGenrated" Type="Self.PinGenrated" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quiz">
+              <PropertyRef Name="Qid" />
+            </Principal>
+            <Dependent Role="PinGenrated">
+              <PropertyRef Name="Qid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__QuestionOp__Qsid__5FB337D6">
           <End Role="Questions" Type="Self.Questions" Multiplicity="0..1" />
           <End Role="QuestionOption" Type="Self.QuestionOption" Multiplicity="*" />
@@ -349,6 +382,7 @@
           <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EnrollerdCourse" EntityType="Self.EnrollerdCourse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Parents" EntityType="Self.Parents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PinGenrated" EntityType="Self.PinGenrated" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="QuestionOption" EntityType="Self.QuestionOption" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Quiz" EntityType="Self.Quiz" Schema="dbo" store:Type="Tables" />
@@ -392,6 +426,14 @@
           <AssociationSet Name="FK__Parents__Uid__44FF419A" Association="Self.FK__Parents__Uid__44FF419A">
             <End Role="ALLUser" EntitySet="ALLUser" />
             <End Role="Parents" EntitySet="Parents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PinGenrat__Useri__3C34F16F" Association="Self.FK__PinGenrat__Useri__3C34F16F">
+            <End Role="ALLUser" EntitySet="ALLUser" />
+            <End Role="PinGenrated" EntitySet="PinGenrated" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PinGenrated__Qid__3D2915A8" Association="Self.FK__PinGenrated__Qid__3D2915A8">
+            <End Role="Quiz" EntitySet="Quiz" />
+            <End Role="PinGenrated" EntitySet="PinGenrated" />
           </AssociationSet>
           <AssociationSet Name="FK__QuestionOp__Qsid__5FB337D6" Association="Self.FK__QuestionOp__Qsid__5FB337D6">
             <End Role="Questions" EntitySet="Questions" />
@@ -523,6 +565,15 @@
           </AssociationSet>
           <FunctionImport Name="getstudentQuiz" ReturnType="Collection(QuizManagementModel.getstudentQuiz_Result)" />
           <FunctionImport Name="getstudentQuizquestion" ReturnType="Collection(QuizManagementModel.getstudentQuizquestion_Result)" />
+          <EntitySet Name="PinGenrateds" EntityType="QuizManagementModel.PinGenrated" />
+          <AssociationSet Name="FK__PinGenrat__Useri__3C34F16F" Association="QuizManagementModel.FK__PinGenrat__Useri__3C34F16F">
+            <End Role="ALLUser" EntitySet="ALLUsers" />
+            <End Role="PinGenrated" EntitySet="PinGenrateds" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PinGenrated__Qid__3D2915A8" Association="QuizManagementModel.FK__PinGenrated__Qid__3D2915A8">
+            <End Role="Quiz" EntitySet="Quizs" />
+            <End Role="PinGenrated" EntitySet="PinGenrateds" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="ALLUser">
           <Key>
@@ -539,6 +590,7 @@
           <NavigationProperty Name="StudentAttenedences" Relationship="QuizManagementModel.FK__StudentAtte__Uid__6A30C649" FromRole="ALLUser" ToRole="StudentAttenedence" />
           <NavigationProperty Name="Studentverfications" Relationship="QuizManagementModel.FK__Studentverf__sid__02FC7413" FromRole="ALLUser" ToRole="Studentverfication" />
           <NavigationProperty Name="Teachers" Relationship="QuizManagementModel.FK__Teacher__uid__3F466844" FromRole="ALLUser" ToRole="Teacher" />
+          <NavigationProperty Name="PinGenrateds" Relationship="QuizManagementModel.FK__PinGenrat__Useri__3C34F16F" FromRole="ALLUser" ToRole="PinGenrated" />
         </EntityType>
         <EntityType Name="AttemptedQuestion">
           <Key>
@@ -630,6 +682,7 @@
           <NavigationProperty Name="AttemptedQuestions" Relationship="QuizManagementModel.FK__AttemptedQ__Qzid__160F4887" FromRole="Quiz" ToRole="AttemptedQuestion" />
           <NavigationProperty Name="Questions" Relationship="QuizManagementModel.FK__Questions__Quizi__6E01572D" FromRole="Quiz" ToRole="Question" />
           <NavigationProperty Name="Teacher" Relationship="QuizManagementModel.FK__Quiz__Tid__4222D4EF" FromRole="Quiz" ToRole="Teacher" />
+          <NavigationProperty Name="PinGenrateds" Relationship="QuizManagementModel.FK__PinGenrated__Qid__3D2915A8" FromRole="Quiz" ToRole="PinGenrated" />
         </EntityType>
         <EntityType Name="Student">
           <Key>
@@ -914,6 +967,41 @@
           <Property Type="Int32" Name="Qsid" Nullable="true" />
           <Property Type="Int32" Name="Uid" Nullable="true" />
         </ComplexType>
+        <EntityType Name="PinGenrated">
+          <Key>
+            <PropertyRef Name="PGid" />
+          </Key>
+          <Property Name="PGid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RandNum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Userid" Type="Int32" />
+          <Property Name="Qid" Type="Int32" />
+          <NavigationProperty Name="ALLUser" Relationship="QuizManagementModel.FK__PinGenrat__Useri__3C34F16F" FromRole="PinGenrated" ToRole="ALLUser" />
+          <NavigationProperty Name="Quiz" Relationship="QuizManagementModel.FK__PinGenrated__Qid__3D2915A8" FromRole="PinGenrated" ToRole="Quiz" />
+        </EntityType>
+        <Association Name="FK__PinGenrat__Useri__3C34F16F">
+          <End Type="QuizManagementModel.ALLUser" Role="ALLUser" Multiplicity="0..1" />
+          <End Type="QuizManagementModel.PinGenrated" Role="PinGenrated" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ALLUser">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="PinGenrated">
+              <PropertyRef Name="Userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PinGenrated__Qid__3D2915A8">
+          <End Type="QuizManagementModel.Quiz" Role="Quiz" Multiplicity="0..1" />
+          <End Type="QuizManagementModel.PinGenrated" Role="PinGenrated" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quiz">
+              <PropertyRef Name="Qid" />
+            </Principal>
+            <Dependent Role="PinGenrated">
+              <PropertyRef Name="Qid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1067,6 +1155,16 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="PinGenrateds">
+            <EntityTypeMapping TypeName="QuizManagementModel.PinGenrated">
+              <MappingFragment StoreEntitySet="PinGenrated">
+                <ScalarProperty Name="Qid" ColumnName="Qid" />
+                <ScalarProperty Name="Userid" ColumnName="Userid" />
+                <ScalarProperty Name="RandNum" ColumnName="RandNum" />
+                <ScalarProperty Name="PGid" ColumnName="PGid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

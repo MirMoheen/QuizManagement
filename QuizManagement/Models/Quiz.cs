@@ -19,6 +19,7 @@ namespace QuizManagement.Models
         {
             this.AttemptedQuestions = new HashSet<AttemptedQuestion>();
             this.Questions = new HashSet<Question>();
+            this.PinGenrateds = new HashSet<PinGenrated>();
         }
     
         public int Qid { get; set; }
@@ -35,5 +36,7 @@ namespace QuizManagement.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Question> Questions { get; set; }
         public virtual Teacher Teacher { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PinGenrated> PinGenrateds { get; set; }
     }
 }

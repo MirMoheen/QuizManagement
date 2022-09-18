@@ -112,9 +112,11 @@ namespace QuizManagement.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, filename);
         }
         [HttpGet]
-        public HttpResponseMessage getQuizstudent(int Quizid,int uid)
+        public HttpResponseMessage getQuizstudent(string Quizid,string uid)
         {
-            var data = Db.getstudentQuizquestion().Where(x=>x.Quizid==Quizid &&x.Uid==uid).FirstOrDefault();
+            int qid = int.Parse(Quizid);
+            int ud = int.Parse(uid);
+            var data = Db.getstudentQuizquestion().Where(x=>x.Quizid==qid &&x.Uid==ud).FirstOrDefault();
             StudentQuizModel obj = new StudentQuizModel();
             if (data!=null)
             {
@@ -137,6 +139,27 @@ namespace QuizManagement.Controllers
             //}).ToList();
 
             return Request.CreateResponse(HttpStatusCode.OK, obj);
+        }
+        [HttpGet]
+        public HttpResponseMessage ConfimPin(int uid, int qid, string pinnumber)
+        {
+            PinGenrated pinGenrated = new PinGenrated();
+            pinGenrated.RandNum = pinnumber;
+            pinGenrated.Qid = qid;
+            pinGenrated.Userid = uid;
+            Db.PinGenrateds.Add(pinGenrated);
+            Db.SaveChanges();
+            return Request.CreateResponse(HttpStatusCode.OK, "Succes");
+        }
+        [HttpGet]
+        public HttpResponseMessage ValidatePin(string pin)
+        {
+            var dta = Db.PinGenrateds.Where(x => x.RandNum == pin).FirstOrDefault();
+            if (dta != null)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, "Succes");
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, "notfound");
         }
     }
 }
